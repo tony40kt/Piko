@@ -6,7 +6,12 @@ import 'package:shared_preferences/shared_preferences.dart';
 /// 兒童個人檔案資料。
 @immutable
 class ChildProfile {
-  const ChildProfile({required this.id, required this.name});
+  const ChildProfile({
+    required this.id,
+    required this.name,
+    this.dob = '',
+    this.mainLanguage = 'en',
+  });
 
   /// 唯一識別碼
   final String id;
@@ -14,16 +19,39 @@ class ChildProfile {
   /// 顯示名稱
   final String name;
 
+  /// 出生日期字串（yyyy-MM-dd）
+  final String dob;
+
+  /// 主語言代碼（en、zh-TW、zh-CN）
+  final String mainLanguage;
+
   /// 複製並更新指定欄位
-  ChildProfile copyWith({String? name}) =>
-      ChildProfile(id: id, name: name ?? this.name);
+  ChildProfile copyWith({String? name, String? dob, String? mainLanguage}) =>
+      ChildProfile(
+        id: id,
+        name: name ?? this.name,
+        dob: dob ?? this.dob,
+        mainLanguage: mainLanguage ?? this.mainLanguage,
+      );
 
   /// 轉為 JSON 以便儲存
-  Map<String, dynamic> toJson() => {'id': id, 'name': name};
+  Map<String, dynamic> toJson() =>
+      {'id': id, 'name': name, 'dob': dob, 'mainLanguage': mainLanguage};
 
-  /// 從 JSON 還原個人檔案
-  factory ChildProfile.fromJson(Map<String, dynamic> json) =>
-      ChildProfile(id: json['id'] as String, name: json['name'] as String);
+  /// 轉為 Map（同 [toJson]）
+  Map<String, dynamic> toMap() => toJson();
+
+  /// 從 JSON 還原個人檔案（舊資料缺少的欄位使用預設值）
+  factory ChildProfile.fromJson(Map<String, dynamic> json) => ChildProfile(
+        id: json['id'] as String,
+        name: json['name'] as String,
+        dob: json['dob'] as String? ?? '',
+        mainLanguage: json['mainLanguage'] as String? ?? 'en',
+      );
+
+  /// 從 Map 還原個人檔案（同 [fromJson]）
+  factory ChildProfile.fromMap(Map<String, dynamic> map) =>
+      ChildProfile.fromJson(map);
 }
 
 /// 以 SharedPreferences 持久化兒童個人檔案。
@@ -63,16 +91,27 @@ class ProfileController extends ChangeNotifier {
   int get profileCount => _profiles.length;
 
   /// 建立新個人檔案並儲存。
-  Future<ChildProfile> createProfile(String name) async {
+  Future<ChildProfile> createProfile(String name,
+      {String dob = '', String mainLanguage = 'en'}) async {
     final profile = ChildProfile(
       // 以時間戳記產生唯一 id
       id: DateTime.now().microsecondsSinceEpoch.toString(),
       name: name.trim(),
+      dob: dob,
+      mainLanguage: mainLanguage,
     );
     _profiles = [..._profiles, profile];
     await _save();
     return profile;
   }
+
+  /// 新增個人檔案（同 [createProfile]）。
+  Future<ChildProfile> addProfile(String name,
+          {String dob = '', String mainLanguage = 'en'}) =>
+      createProfile(name, dob: dob, mainLanguage: mainLanguage);
+
+  /// 修改個人檔案（同 [updateProfile]）。
+  Future<void> editProfile(ChildProfile profile) => updateProfile(profile);
 
   /// 更新既有個人檔案（依 id 比對）並儲存。
   Future<void> updateProfile(ChildProfile profile) async {
