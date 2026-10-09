@@ -1,0 +1,52 @@
+{
+  "quizzes": [
+    {
+      "id": "lang_001",
+      "category": "language",
+      "type": 1, 
+      "target_age": 2,
+      "image_url": "assets/images/quiz/apple.png",
+      "translations": {
+        "zh-TW": { "question_text": "請從圖中選出對應的中文", "correct_answer": "蘋果", "options": ["蘋果", "香蕉", "西瓜"] },
+        "zh-CN": { "question_text": "请从图中选出对应的中文", "correct_answer": "苹果", "options": ["苹果", "香蕉", "西瓜"] },
+        "en": { "question_text": "Select the correct word for the picture.", "correct_answer": "Apple", "options": ["Apple", "Banana", "Watermelon"] }
+      }
+    },
+    {
+      "id": "lang_002",
+      "category": "language",
+      "type": 2,
+      "target_age": 4,
+      "image_url": "assets/images/quiz/dog.png",
+      "translations": {
+        "zh-TW": { "question_text": "請從字中選出對應的圖案：「狗」", "correct_answer": "assets/images/quiz/dog.png", "options": ["assets/images/quiz/dog.png", "assets/images/quiz/cat.png", "assets/images/quiz/bird.png"] },
+        "zh-CN": { "question_text": "请从字中选出对应的图案：「狗」", "correct_answer": "assets/images/quiz/dog.png", "options": ["assets/images/quiz/dog.png", "assets/images/quiz/cat.png", "assets/images/quiz/bird.png"] },
+        "en": { "question_text": "Select the correct picture for the word: 'Dog'", "correct_answer": "assets/images/quiz/dog.png", "options": ["assets/images/quiz/dog.png", "assets/images/quiz/cat.png", "assets/images/quiz/bird.png"] }
+      }
+    },
+    {
+      "id": "math_001",
+      "category": "math",
+      "type": 3,
+      "target_age": 3,
+      "image_url": "assets/images/quiz/three_stars.png",
+      "translations": {
+        "zh-TW": { "question_text": "數一數，圖中有幾顆星星？", "correct_answer": "3", "options": ["1", "3", "5"] },
+        "zh-CN": { "question_text": "数一数，图中有几颗星星？", "correct_answer": "3", "options": ["1", "3", "5"] },
+        "en": { "question_text": "Count the stars in the picture.", "correct_answer": "3", "options": ["1", "3", "5"] }
+      }
+    },
+    {
+      "id": "math_002",
+      "category": "math",
+      "type": 5,
+      "target_age": 5,
+      "image_url": null,
+      "translations": {
+        "zh-TW": { "question_text": "算算看：2 + 3 = 多少？", "correct_answer": "5", "options": ["4", "5", "6", "7"] },
+        "zh-CN": { "question_text": "算算看：2 + 3 = 多少？", "correct_answer": "5", "options": ["4", "5", "6", "7"] },
+        "en": { "question_text": "What is 2 + 3?", "correct_answer": "5", "options": ["4", "5", "6", "7"] }
+      }
+    }
+  ]
+}
