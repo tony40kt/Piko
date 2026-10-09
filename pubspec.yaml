@@ -1,24 +1,38 @@
 name: magic_sticker_island
-description: A playful learning adventure for young children.
-publish_to: "none"
+description: "奇妙貼貼島 - 專案為 2-6 歲兒童設計的跨平台教育與貼紙建造應用程式"
+publish_to: 'none'
 version: 1.0.0+1
 
 environment:
-  sdk: ">=3.4.0 <4.0.0"
+  sdk: '>=3.0.0 <4.0.0'
 
 dependencies:
   flutter:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
-  purchases_flutter: ^8.10.0
-  provider: ^6.1.2
-  shared_preferences: ^2.3.2
+
+  # 全域狀態管理與數據中心
+  provider: ^6.1.1
+  
+  # 本地持久化快取 (用於多帳戶儲存、每日挑戰鎖定、免費用戶次數限制)
+  shared_preferences: ^2.2.2
+
+  # 跨平台訂閱管理與付費牆核心 (支援無 Mac 雲端打包 iOS 系統)
+  purchases_flutter: ^6.0.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^5.0.0
+  flutter_lints: ^3.0.0
 
 flutter:
   uses-material-design: true
+
+  # 預先配置未來外包美術與題庫需要的資產路徑
+  assets:
+    - assets/json/
+    - assets/images/ui/
+    - assets/images/map/
+    - assets/images/stickers/
+    - assets/images/quiz/
