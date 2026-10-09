@@ -5,14 +5,17 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 class AppLocalizations {
   AppLocalizations(this.locale);
 
+  /// 目前語系
   final Locale locale;
 
+  /// 支援的語系清單
   static const supportedLocales = <Locale>[
     Locale('en'),
     Locale.fromSubtags(languageCode: 'zh', scriptCode: 'Hant', countryCode: 'TW'),
     Locale.fromSubtags(languageCode: 'zh', scriptCode: 'Hans', countryCode: 'CN'),
   ];
 
+  /// 本地化代理清單（自訂文字 + Flutter 內建元件）
   static const localizationsDelegates = <LocalizationsDelegate<dynamic>>[
     AppLocalizations.delegate,
     GlobalMaterialLocalizations.delegate,
@@ -20,12 +23,15 @@ class AppLocalizations {
     GlobalCupertinoLocalizations.delegate,
   ];
 
+  /// 自訂文字的代理
   static const LocalizationsDelegate<AppLocalizations> delegate =
       _AppLocalizationsDelegate();
 
+  /// 由 context 取得目前的本地化文字。
   static AppLocalizations of(BuildContext context) =>
       Localizations.of<AppLocalizations>(context, AppLocalizations)!;
 
+  // 英文字串
   static const _en = <String, String>{
     'appTitle': 'Magic Sticker Island',
     'createProfileTitle': 'Create Child Profile',
@@ -38,6 +44,7 @@ class AppLocalizations {
     'addProfile': 'Add profile',
   };
 
+  // 繁體中文字串
   static const _zhTW = <String, String>{
     'appTitle': '奇妙貼貼島',
     'createProfileTitle': '建立個人檔案',
@@ -50,6 +57,7 @@ class AppLocalizations {
     'addProfile': '新增帳戶',
   };
 
+  // 簡體中文字串
   static const _zhCN = <String, String>{
     'appTitle': '奇妙贴贴岛',
     'createProfileTitle': '创建个人档案',
@@ -62,18 +70,23 @@ class AppLocalizations {
     'addProfile': '新增账户',
   };
 
+  /// 依語系挑選字串表：非中文用英文；中文依文字(script)或地區判斷繁/簡。
   Map<String, String> get _strings {
+    // 非中文一律使用英文
     if (locale.languageCode != 'zh') return _en;
     final traditional = locale.scriptCode == 'Hant' ||
         (locale.scriptCode == null &&
             (locale.countryCode == 'TW' ||
                 locale.countryCode == 'HK' ||
                 locale.countryCode == 'MO'));
+    // 繁體：Hant，或未指定 script 且地區為 TW/HK/MO
     return traditional ? _zhTW : _zhCN;
   }
 
+  /// 取得字串，缺少時退回英文。
   String _t(String key) => _strings[key] ?? _en[key]!;
 
+  // 以下為各項介面文字
   String get appTitle => _t('appTitle');
   String get createProfileTitle => _t('createProfileTitle');
   String get nameLabel => _t('nameLabel');
@@ -82,9 +95,11 @@ class AppLocalizations {
   String get selectProfileTitle => _t('selectProfileTitle');
   String get homeTitle => _t('homeTitle');
   String get addProfile => _t('addProfile');
+  /// 歡迎訊息，將 {name} 替換為名字。
   String welcome(String name) => _t('welcome').replaceAll('{name}', name);
 }
 
+/// 本地化代理實作。
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
   const _AppLocalizationsDelegate();
 
